@@ -17,8 +17,13 @@ private:
 		//node constructor
 		Node(N key, Node* left = nullptr, Node* right = nullptr, Node* p = nullptr) : key_(key), left_(left), right_(right), p_(p) {}
 		~Node() {
-			if (left_) left_->~Node();
-			if (right_) right_->~Node();
+			if (left_) {
+				left_->~Node();
+			}
+			if (right_)
+			{
+				right_->~Node();
+			}
 		}
 	};
 	Node<T>* root_; // Pointer to the root node
@@ -86,16 +91,6 @@ private:
 			inorderWalk(node->left_);
 			std::cout << node->key_ << " ";
 			inorderWalk(node->right_);
-		}
-	}
-
-	void destroy(Node<T>* node)
-	{
-		if (node)
-		{
-			destroy(node->left_);
-			destroy(node->right_);
-			delete node;
 		}
 	}
 
