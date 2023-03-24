@@ -16,6 +16,10 @@ private:
 
 		//node constructor
 		Node(N key, Node* left = nullptr, Node* right = nullptr, Node* p = nullptr) : key_(key), left_(left), right_(right), p_(p) {}
+		~Node() {
+			if (left_) left_->~Node();
+			if (right_) right_->~Node();
+		}
 	};
 	Node<T>* root_; // Pointer to the root node
 
@@ -149,7 +153,7 @@ public:
 	//destructor
 	virtual ~BinarySearchTree()
 	{
-		destroy(root_);
+		root_->~Node();
 	}
 
 	// 1.1 Key search function in binary search tree
@@ -307,7 +311,7 @@ public:
 				current = current->left_;
 			}
 			else {
-				current = stack.length();
+				current = stack.top();
 				stack.pop();
 				std::cout << current->key_ << " ";
 				current = current->right_;

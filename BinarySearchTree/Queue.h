@@ -34,24 +34,24 @@ class WrongQueueSize : public std::exception
 public:
     const char* what() const noexcept
     {
-        return "Wrong queue size!";
+        return "Wrong queue size_!";
     }
 };
 
 template <class T>
 class QueueArray : public Queue<T> {
 private:
-    int size = 0;
-    int head = -1;
-    int tail = -1;
-    T* queueArray;
+    int size_ = 0;
+    int head_ = -1;
+    int tail_ = -1;
+    T* queueArray_;
 
 public:
-    QueueArray(int size) : size(size), head(-1), tail(-1) {
-        if (size <= 0) {
+    QueueArray(int size_) : size_(size_), head_(-1), tail_(-1) {
+        if (size_ <= 0) {
             throw WrongQueueSize();
         }
-        queueArray = new T[size];
+        queueArray_ = new T[size_];
     }
 
     QueueArray(const QueueArray<T>& src) = delete;
@@ -60,34 +60,34 @@ public:
     QueueArray& operator=(QueueArray<T>&& src) = delete;
 
     ~QueueArray() {
-        delete[] queueArray;
+        delete[] queueArray_;
     }
 
     void enQueue(const T& element) {
-        if (head == -1) {
-            head = 0;
+        if (head_ == -1) {
+            head_ = 0;
         }
-        if (tail == size - 1) {
+        if (tail_ == size_ - 1) {
             throw QueueOverflow();
         }
-        tail++;
-        queueArray[tail] = element;
+        tail_++;
+        queueArray_[tail_] = element;
     }
 
     T deQueue() {
         if (isEmpty()) {
             throw QueueUnderflow();
         }
-        T item = queueArray[head];
-        head++;
-        if (head > tail) {
-            head = tail = -1;
+        T item = queueArray_[head_];
+        head_++;
+        if (head_ > tail_) {
+            head_ = tail_ = -1;
         }
         return item;
     }
 
     bool isEmpty() {
-        return head == -1 and tail == -1;
+        return head_ == -1 and tail_ == -1;
     }
 
 };

@@ -34,7 +34,7 @@ class WrongStackSize : public std::exception
 public:
     const char* what() const noexcept
     {
-        return "Wrong stack size";
+        return "Wrong stack size_";
     }
 };
 
@@ -42,28 +42,28 @@ template <class T>
 class StackArray : public Stack<T>
 {
 private:
-    T* arr;
-    int size = 0;
-    int top = -1;
+    T* arr_;
+    int size_ = 0;
+    int top_ = -1;
 
 public:
-    StackArray(int s) : size(s), top(-1)
+    StackArray(int s) : size_(s), top_(-1)
     {
         if (s <= 0)
         {
             throw WrongStackSize();
         }
-        arr = new T[size];
+        arr_ = new T[size_];
     }
 
-    StackArray(const StackArray<T>& src) : size(src.size), top(src.top) {
+    StackArray(const StackArray<T>& src) : size_(src.size_), top_(src.top_) {
   
-        if (src.size < 0) {
+        if (src.size_ < 0) {
             throw WrongStackSize();
         }
-        arr = new T[src.size + 1];
-        for (size_t i = 1; i < src.top; i++) {
-            arr[i] = src.arr[i];
+        arr_ = new T[src.size_ + 1];
+        for (size_t i = 1; i < src.top_; i++) {
+            arr_[i] = src.arr_[i];
         }
     }
 
@@ -73,40 +73,40 @@ public:
 
     ~StackArray()
     {
-        delete[] arr;
+        delete[] arr_;
     }
 
     void push(const T& element)
     {
-        if (top == size - 1)
+        if (top_ == size_ - 1)
         {
             throw StackOverflow();
         }
-        top++;
-        arr[top] = element;
+        top_++;
+        arr_[top_] = element;
     }
 
     T pop()
     {
-        if (top == -1)
+        if (top_ == -1)
         {
             throw StackUnderflow();
         }
-        T element = arr[top];
-        top--;
+        T element = arr_[top_];
+        top_--;
         return element;
     }
 
     bool isEmpty()
     {
-        return top == -1;
+        return top_ == -1;
     }
 
-    T length() {
+    T top() {
         if (isEmpty()) {
             throw StackUnderflow();
         }
-        return arr[top];
+        return arr_[top_];
     }
 
 };

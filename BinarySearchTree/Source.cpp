@@ -1,6 +1,5 @@
 #include <iostream>
 #include "BinarySearchTree.h"
-#include <cstdlib>
 
 int main() {
 	std::cout << "test 1\n";
@@ -54,5 +53,8 @@ int main() {
 	std::cout << "are similar tree 2 and tree 3: " << test2.isSimilar(test1);
 	std::cout << std::endl << "are identical keys in tree 2 and tree 3: " << test2.isIdenticalKey(test1) << std::endl;
 
+	test.~BinarySearchTree();
+	test1.~BinarySearchTree();
+	test2.~BinarySearchTree();
 	return 0;
 }
